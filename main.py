@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 load_dotenv()
 BOT_TOKEN = os.getenv("BOT_TOKEN")
 
-WEB_APP_URL = "https://твой-vercel-домен.vercel.app/frontend/index.html"
+WEB_APP_URL = "https://finance3-azure.vercel.app"
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     keyboard = [
