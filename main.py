@@ -4,19 +4,20 @@ import os
 
 app = FastAPI()
 
+BASE_DIR = os.getcwd()
+
 @app.get("/")
 def home():
-    return FileResponse("index.html")
+    return FileResponse(os.path.join(BASE_DIR, "index.html"))
 
 @app.get("/style.css")
 def css():
-    return FileResponse("style.css")
+    return FileResponse(os.path.join(BASE_DIR, "style.css"))
 
 @app.get("/script.js")
 def js():
-    return FileResponse("script.js")
+    return FileResponse(os.path.join(BASE_DIR, "script.js"))
 
 @app.get("/api/ping")
 def ping():
     return {"status": "ok"}
-
