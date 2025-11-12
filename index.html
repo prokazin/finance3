@@ -2,10 +2,11 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
   <title>Мои финансы 💰</title>
   <link rel="stylesheet" href="style.css">
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
   <h1>💵 Учёт финансов</h1>
@@ -17,10 +18,26 @@
       <option value="expense">Расход</option>
       <option value="debt">Долг</option>
     </select>
+    <select id="category">
+      <option value="Прочее">Прочее</option>
+      <option value="Продукты">Продукты</option>
+      <option value="Квартира">Квартира</option>
+      <option value="Развлечения">Развлечения</option>
+      <option value="Работа">Работа</option>
+    </select>
     <button id="add">Добавить</button>
+    <button onclick="quickAdd(100)">+100₽</button>
+    <button onclick="quickAdd(500)">+500₽</button>
   </div>
 
   <div id="list"></div>
+  <canvas id="chart" width="300" height="200" style="display:none;"></canvas>
+
+  <div class="bottom-menu">
+    <button onclick="showTab('records')">Счета</button>
+    <button onclick="showTab('graph')">Графики</button>
+    <button onclick="showTab('settings')">Настройки</button>
+  </div>
 
   <script src="script.js"></script>
 </body>
