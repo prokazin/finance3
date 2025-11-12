@@ -11,6 +11,15 @@
   <div class="app">
     <h1>📊 Финансы</h1>
 
+    <div id="salaryDiv">
+      <input type="number" id="salaryInput" placeholder="Введите зарплату" />
+      <button onclick="updateSalary()">Сохранить</button>
+    </div>
+
+    <div id="balanceDiv">
+      <h3>Остаток: <span id="balanceAmount">0</span> ₽</h3>
+    </div>
+
     <div class="menu">
       <button class="tab-btn active" data-tab="income">Доходы</button>
       <button class="tab-btn" data-tab="expense">Расходы</button>
@@ -18,10 +27,15 @@
       <button class="tab-btn" data-tab="stats">Статистика</button>
     </div>
 
+    <!-- Доходы -->
     <div id="income" class="tab active">
       <h2>Добавить доход</h2>
       <input type="number" id="incomeAmount" placeholder="Сумма" />
-      <input type="text" id="incomeCategory" placeholder="Категория" />
+      <select id="incomeCategory">
+        <option value="salary">Зарплата 💰</option>
+        <option value="gift">Подарок 🎁</option>
+        <option value="other">Другое 💵</option>
+      </select>
       <div class="quick-btns">
         <button onclick="quickAdd('income',100)">+100</button>
         <button onclick="quickAdd('income',500)">+500</button>
@@ -30,10 +44,16 @@
       <ul id="incomeList"></ul>
     </div>
 
+    <!-- Расходы -->
     <div id="expense" class="tab">
       <h2>Добавить расход</h2>
       <input type="number" id="expenseAmount" placeholder="Сумма" />
-      <input type="text" id="expenseCategory" placeholder="Категория" />
+      <select id="expenseCategory">
+        <option value="food">Еда 🍔</option>
+        <option value="rent">Аренда 🏠</option>
+        <option value="transport">Транспорт 🚗</option>
+        <option value="other">Другое 💸</option>
+      </select>
       <div class="quick-btns">
         <button onclick="quickAdd('expense',100)">+100</button>
         <button onclick="quickAdd('expense',500)">+500</button>
@@ -42,14 +62,20 @@
       <ul id="expenseList"></ul>
     </div>
 
+    <!-- Долги -->
     <div id="debt" class="tab">
       <h2>Добавить долг</h2>
       <input type="number" id="debtAmount" placeholder="Сумма" />
-      <input type="text" id="debtCategory" placeholder="Категория" />
+      <select id="debtCategory">
+        <option value="loan">Кредит 🏦</option>
+        <option value="friend">Друг 👥</option>
+        <option value="other">Другое 💳</option>
+      </select>
       <button onclick="addRecord('debt')">Добавить</button>
       <ul id="debtList"></ul>
     </div>
 
+    <!-- Статистика -->
     <div id="stats" class="tab">
       <h2>📈 Статистика</h2>
       <select id="periodSelect" onchange="updateChart()">
