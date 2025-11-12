@@ -2,48 +2,64 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-  <title>Мои финансы 💰</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+  <title>Финансы 💰</title>
+  <link rel="stylesheet" href="style.css" />
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-  <h1>💵 Учёт финансов</h1>
+  <div class="app">
+    <h1>📊 Финансы</h1>
 
-  <div class="inputs">
-    <input id="amount" type="number" placeholder="Сумма (₽)">
-    <select id="type">
-      <option value="income">Доход</option>
-      <option value="expense">Расход</option>
-      <option value="debt">Долг</option>
-    </select>
-    <select id="category">
-      <option value="Прочее">Прочее</option>
-      <option value="Продукты">Продукты</option>
-      <option value="Квартира">Квартира</option>
-      <option value="Развлечения">Развлечения</option>
-      <option value="Работа">Работа</option>
-    </select>
-    <button id="add">Добавить</button>
-    <button onclick="quickAdd(100)">+100₽</button>
-    <button onclick="quickAdd(500)">+500₽</button>
-  </div>
+    <div class="menu">
+      <button class="tab-btn active" data-tab="income">Доходы</button>
+      <button class="tab-btn" data-tab="expense">Расходы</button>
+      <button class="tab-btn" data-tab="debt">Долги</button>
+      <button class="tab-btn" data-tab="stats">Статистика</button>
+    </div>
 
-  <div id="list"></div>
-  <div class="chart-container">
-    <canvas id="chart"></canvas>
-  </div>
+    <div id="income" class="tab active">
+      <h2>Добавить доход</h2>
+      <input type="number" id="incomeAmount" placeholder="Сумма" />
+      <input type="text" id="incomeCategory" placeholder="Категория" />
+      <div class="quick-btns">
+        <button onclick="quickAdd('income',100)">+100</button>
+        <button onclick="quickAdd('income',500)">+500</button>
+      </div>
+      <button onclick="addRecord('income')">Добавить</button>
+      <ul id="incomeList"></ul>
+    </div>
 
-  <div id="settings" style="display:none; padding:10px;">
-    <button onclick="clearAll()">Сбросить все записи</button>
-    <p>Текущий баланс: <span id="balanceDisplay">0₽</span></p>
-  </div>
+    <div id="expense" class="tab">
+      <h2>Добавить расход</h2>
+      <input type="number" id="expenseAmount" placeholder="Сумма" />
+      <input type="text" id="expenseCategory" placeholder="Категория" />
+      <div class="quick-btns">
+        <button onclick="quickAdd('expense',100)">+100</button>
+        <button onclick="quickAdd('expense',500)">+500</button>
+      </div>
+      <button onclick="addRecord('expense')">Добавить</button>
+      <ul id="expenseList"></ul>
+    </div>
 
-  <div class="bottom-menu">
-    <button onclick="showTab('records')">Счета</button>
-    <button onclick="showTab('graph')">Графики</button>
-    <button onclick="showTab('settings')">Настройки</button>
+    <div id="debt" class="tab">
+      <h2>Добавить долг</h2>
+      <input type="number" id="debtAmount" placeholder="Сумма" />
+      <input type="text" id="debtCategory" placeholder="Категория" />
+      <button onclick="addRecord('debt')">Добавить</button>
+      <ul id="debtList"></ul>
+    </div>
+
+    <div id="stats" class="tab">
+      <h2>📈 Статистика</h2>
+      <select id="periodSelect" onchange="updateChart()">
+        <option value="week">Неделя</option>
+        <option value="month" selected>Месяц</option>
+        <option value="year">Год</option>
+      </select>
+      <canvas id="financeChart"></canvas>
+      <div id="summary"></div>
+    </div>
   </div>
 
   <script src="script.js"></script>
