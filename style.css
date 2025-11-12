@@ -8,8 +8,19 @@ body {
 }
 
 h1 { margin-bottom:20px; }
-.inputs { display:flex; justify-content:center; gap:5px; margin-bottom:10px; }
+.inputs { display:flex; justify-content:center; gap:5px; margin-bottom:10px; flex-wrap: wrap; }
 input, select, button { padding:8px; font-size:14px; }
 #list p { background:white; margin:5px auto; padding:10px; width:250px; border-radius:5px; text-align:left; }
 .bottom-menu { position:fixed; bottom:0; width:100%; display:flex; justify-content:space-around; background:#fff; padding:10px 0; border-top:1px solid #ccc; }
 .bottom-menu button { flex:1; padding:10px; }
+.chart-container { max-width: 100%; margin:0 auto; padding:10px; }
+
+/* График только для мобильных */
+@media (max-width: 768px) {
+  #chart { display: block; width: 100% !important; height: auto !important; }
+}
+
+/* Скрываем график на больших экранах */
+@media (min-width: 769px) {
+  #chart { display: none; }
+}
