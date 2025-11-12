@@ -1,22 +1,25 @@
+from fastapi import FastAPI
+from fastapi.responses import FileResponse
 import os
-from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update, WebAppInfo
-from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes
-from dotenv import load_dotenv
 
-load_dotenv()
-BOT_TOKEN = os.getenv("BOT_TOKEN")
+app = FastAPI()
 
-WEB_APP_URL = "https://finance3-azure.vercel.app"
+@app.get("/")
+def home():
+    return FileResponse("index.html")
 
-async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    keyboard = [
-        [InlineKeyboardButton("Открыть приложение 💼", web_app=WebAppInfo(url=WEB_APP_URL))]
-    ]
-    await update.message.reply_text("Добро пожаловать в приложение учёта финансов:", 
-                                    reply_markup=InlineKeyboardMarkup(keyboard))
+@app.get("/style.css")
+def css():
+    return FileResponse("style.css")
 
-app = ApplicationBuilder().token(BOT_TOKEN).build()
-app.add_handler(CommandHandler("start", start))
+@app.get("/script.js")
+def js():
+    return FileResponse("script.js")
+
+@app.get("/api/ping")
+def ping():
+    return {"status": "ok"}
 
 if __name__ == "__main__":
-    app.run_polling()
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=8000)
