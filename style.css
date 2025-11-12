@@ -1,32 +1,15 @@
 body {
-  font-family: Arial, sans-serif;
+  font-family: Arial;
   text-align: center;
   padding: 20px;
   background: #f4f4f4;
   color: #333;
+  touch-action: manipulation;
 }
 
-h1 {
-  margin-bottom: 20px;
-}
-
-.inputs {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  margin-bottom: 20px;
-}
-
-input, select, button {
-  padding: 10px;
-  font-size: 16px;
-}
-
-#list p {
-  background: white;
-  margin: 5px auto;
-  padding: 10px;
-  width: 250px;
-  border-radius: 5px;
-  text-align: left;
-}
+h1 { margin-bottom:20px; }
+.inputs { display:flex; justify-content:center; gap:5px; margin-bottom:10px; }
+input, select, button { padding:8px; font-size:14px; }
+#list p { background:white; margin:5px auto; padding:10px; width:250px; border-radius:5px; text-align:left; }
+.bottom-menu { position:fixed; bottom:0; width:100%; display:flex; justify-content:space-around; background:#fff; padding:10px 0; border-top:1px solid #ccc; }
+.bottom-menu button { flex:1; padding:10px; }
