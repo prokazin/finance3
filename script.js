@@ -59,12 +59,15 @@ function render() {
 }
 
 function renderChart() {
-  chartCanvas.style.display = 'block';
+  const ctx = chartCanvas.getContext('2d');
+  chartCanvas.width = window.innerWidth - 40;
+  chartCanvas.height = 200;
+
   const income = records.filter(r => r.type==='income').reduce((a,b)=>a+b.amount,0);
   const expense = records.filter(r => r.type==='expense').reduce((a,b)=>a+b.amount,0);
   const debt = records.filter(r => r.type==='debt').reduce((a,b)=>a+b.amount,0);
 
-  new Chart(chartCanvas.getContext('2d'), {
+  new Chart(ctx, {
     type: 'doughnut',
     data: {
       labels: ['Доход','Расход','Долг'],
@@ -72,6 +75,10 @@ function renderChart() {
         data:[income, expense, debt],
         backgroundColor:['#4caf50','#f44336','#ff9800']
       }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false
     }
   });
 }
