@@ -35,6 +35,11 @@
     <canvas id="chart"></canvas>
   </div>
 
+  <div id="settings" style="display:none; padding:10px;">
+    <button onclick="clearAll()">Сбросить все записи</button>
+    <p>Текущий баланс: <span id="balanceDisplay">0₽</span></p>
+  </div>
+
   <div class="bottom-menu">
     <button onclick="showTab('records')">Счета</button>
     <button onclick="showTab('graph')">Графики</button>
