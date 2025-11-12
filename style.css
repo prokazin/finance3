@@ -15,12 +15,10 @@ input, select, button { padding:8px; font-size:14px; }
 .bottom-menu button { flex:1; padding:10px; }
 .chart-container { max-width: 100%; margin:0 auto; padding:10px; }
 
-/* График только для мобильных */
 @media (max-width: 768px) {
   #chart { display: block; width: 100% !important; height: auto !important; }
 }
 
-/* Скрываем график на больших экранах */
 @media (min-width: 769px) {
   #chart { display: none; }
 }
