@@ -1,25 +1,32 @@
 body {
-  font-family: sans-serif;
-  background: #0f172a;
-  color: white;
+  font-family: Arial, sans-serif;
   text-align: center;
   padding: 20px;
+  background: #f4f4f4;
+  color: #333;
 }
 
-h1 { margin-bottom: 20px; }
+h1 {
+  margin-bottom: 20px;
+}
 
 .inputs {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
   margin-bottom: 20px;
 }
 
 input, select, button {
   padding: 10px;
-  margin: 5px;
-  border-radius: 8px;
-  border: none;
+  font-size: 16px;
 }
-button {
-  background: #22c55e;
-  color: white;
-  font-weight: bold;
+
+#list p {
+  background: white;
+  margin: 5px auto;
+  padding: 10px;
+  width: 250px;
+  border-radius: 5px;
+  text-align: left;
 }
