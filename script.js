@@ -9,6 +9,7 @@ const listDiv = document.getElementById("list");
 const chartCanvas = document.getElementById("chart");
 
 let records = [];
+let chartInstance = null;
 
 async function fetchRecords() {
   const res = await fetch("/records");
@@ -39,8 +40,8 @@ addButton.addEventListener("click", async () => {
   amountInput.value = "";
 });
 
-function quickAdd(amount) {
-  addRecord(typeSelect.value, amount, categorySelect.value);
+async function quickAdd(amount) {
+  await addRecord(typeSelect.value, amount, categorySelect.value);
 }
 
 function render() {
@@ -49,13 +50,19 @@ function render() {
     if (r.type === "income") balance += r.amount;
     if (r.type === "expense") balance -= r.amount;
     if (r.type === "debt") balance -= r.amount;
-    return `<p>${r.type==='income'?'💰 Доход':r.type==='expense'?'💸 Расход':'📉 Долг'} (${r.category}): ${r.amount}₽ 
-      <button onclick="removeRecord(${i})">×</button></p>`;
+
+    const color = r.type==='income' ? '#4caf50' : r.type==='expense' ? '#f44336' : '#ff9800';
+
+    return `<div style="background:${color}; color:white; margin:5px auto; padding:10px; border-radius:5px; width:250px; text-align:left;">
+      <strong>${r.type==='income'?'💰 Доход':r.type==='expense'?'💸 Расход':'📉 Долг'}</strong> (${r.category}): ${r.amount}₽
+      <button style="float:right; background:white; color:black; border:none; border-radius:50%;" onclick="removeRecord(${i})">×</button>
+    </div>`;
   }).join("");
-  
+
   if(balance < 1000) listDiv.innerHTML += `<p style="color:red">⚠ Остаток меньше 1000₽!</p>`;
 
   renderChart();
+  updateBalanceDisplay();
 }
 
 function renderChart() {
@@ -67,7 +74,9 @@ function renderChart() {
   const expense = records.filter(r => r.type==='expense').reduce((a,b)=>a+b.amount,0);
   const debt = records.filter(r => r.type==='debt').reduce((a,b)=>a+b.amount,0);
 
-  new Chart(ctx, {
+  if(chartInstance) chartInstance.destroy();
+
+  chartInstance = new Chart(ctx, {
     type: 'doughnut',
     data: {
       labels: ['Доход','Расход','Долг'],
@@ -86,6 +95,24 @@ function renderChart() {
 function showTab(tab) {
   listDiv.style.display = tab==='records' ? 'block' : 'none';
   chartCanvas.style.display = tab==='graph' ? 'block' : 'none';
+  document.getElementById('settings').style.display = tab==='settings' ? 'block' : 'none';
+  updateBalanceDisplay();
+}
+
+function clearAll() {
+  if(confirm("Вы уверены, что хотите удалить все записи?")) {
+    records = [];
+    fetch("/records").then(() => render());
+  }
+}
+
+function updateBalanceDisplay() {
+  let balance = records.reduce((acc, r) => {
+    if(r.type==='income') return acc + r.amount;
+    if(r.type==='expense' || r.type==='debt') return acc - r.amount;
+    return acc;
+  }, 0);
+  document.getElementById('balanceDisplay').textContent = balance + '₽';
 }
 
 fetchRecords();
