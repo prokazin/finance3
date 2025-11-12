@@ -1,24 +1,97 @@
 body {
-  font-family: Arial;
-  text-align: center;
-  padding: 20px;
-  background: #f4f4f4;
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(to bottom, #d9f1ff, #bce0ff);
   color: #333;
-  touch-action: manipulation;
+  display: flex;
+  justify-content: center;
 }
 
-h1 { margin-bottom:20px; }
-.inputs { display:flex; justify-content:center; gap:5px; margin-bottom:10px; flex-wrap: wrap; }
-input, select, button { padding:8px; font-size:14px; }
-#list p { background:white; margin:5px auto; padding:10px; width:250px; border-radius:5px; text-align:left; }
-.bottom-menu { position:fixed; bottom:0; width:100%; display:flex; justify-content:space-around; background:#fff; padding:10px 0; border-top:1px solid #ccc; }
-.bottom-menu button { flex:1; padding:10px; }
-.chart-container { max-width: 100%; margin:0 auto; padding:10px; }
-
-@media (max-width: 768px) {
-  #chart { display: block; width: 100% !important; height: auto !important; }
+.app {
+  width: 100%;
+  max-width: 400px;
+  padding: 20px;
+  box-sizing: border-box;
 }
 
-@media (min-width: 769px) {
-  #chart { display: none; }
+h1 {
+  text-align: center;
+}
+
+.menu {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+.tab-btn {
+  flex: 1;
+  margin: 0 5px;
+  padding: 10px;
+  border: none;
+  background: #e1efff;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.tab-btn.active {
+  background: #0078ff;
+  color: white;
+}
+
+.tab {
+  display: none;
+}
+
+.tab.active {
+  display: block;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  margin: 5px 0;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+button {
+  width: 100%;
+  padding: 10px;
+  margin: 5px 0;
+  background: #0078ff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.quick-btns {
+  display: flex;
+  justify-content: space-between;
+}
+
+.quick-btns button {
+  width: 48%;
+  background: #00b894;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+li {
+  background: #f7f9fc;
+  padding: 8px;
+  border-radius: 6px;
+  margin: 5px 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+#summary {
+  text-align: center;
+  margin-top: 15px;
+  font-weight: bold;
 }
