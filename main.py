@@ -1,10 +1,13 @@
-from fastapi import FastAPI
-from fastapi.responses import FileResponse
+from fastapi import FastAPI, Request
+from fastapi.responses import FileResponse, JSONResponse
 import os
+from datetime import datetime
 
 app = FastAPI()
-
 BASE_DIR = os.getcwd()
+
+# Временное хранилище в памяти
+records = []
 
 @app.get("/")
 def home():
@@ -17,6 +20,27 @@ def css():
 @app.get("/script.js")
 def js():
     return FileResponse(os.path.join(BASE_DIR, "script.js"))
+
+# Получить все записи
+@app.get("/records")
+def get_records():
+    return JSONResponse(content=records)
+
+# Добавить запись
+@app.post("/records")
+async def add_record(req: Request):
+    data = await req.json()
+    data["date"] = datetime.now().isoformat()
+    records.append(data)
+    return {"status": "ok"}
+
+# Удалить запись
+@app.delete("/records/{index}")
+def delete_record(index: int):
+    if 0 <= index < len(records):
+        records.pop(index)
+        return {"status": "deleted"}
+    return {"status": "not found"}
 
 @app.get("/api/ping")
 def ping():
