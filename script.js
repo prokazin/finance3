@@ -3,14 +3,15 @@ tg.expand();
 
 const amountInput = document.getElementById("amount");
 const typeSelect = document.getElementById("type");
-const listDiv = document.getElementById("list");
 const addButton = document.getElementById("add");
+const listDiv = document.getElementById("list");
 
 let records = JSON.parse(localStorage.getItem("records") || "[]");
 
 function render() {
   listDiv.innerHTML = records
-    .map(r => `<p>${r.type}: ${r.amount}₽</p>`)
+    .map((r, i) => `<p>${r.type === 'income' ? '💰 Доход' : r.type === 'expense' ? '💸 Расход' : '📉 Долг'}: ${r.amount}₽ 
+    <button onclick="remove(${i})">×</button></p>`)
     .join("");
 }
 
@@ -23,5 +24,11 @@ addButton.addEventListener("click", () => {
   render();
   amountInput.value = "";
 });
+
+function remove(index) {
+  records.splice(index, 1);
+  localStorage.setItem("records", JSON.stringify(records));
+  render();
+}
 
 render();
